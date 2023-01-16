@@ -1,7 +1,7 @@
 import os
 
 # Set the API key as an environment variable
-os.environ["API_KEY"] = "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"
+os.environ["API_KEY"] = "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"
 
 # Import the OpenAI API client
 import openai
@@ -13,7 +13,7 @@ api_key = os.environ.get("API_KEY")
 openai.api_key = api_key
 
 # Define the prompt
-prompt = 'Give me 5 detailed ideas for TikTok videos that captialize on the trend: Lionel Messi accepts offer from Saudi Arabian club'
+prompt = 'Give me a tiktok video for the trend about Kendall Jenner taking into account Devin Booker and Khloe Kardashian'
 
 # Run the GPT-3 query
 response = openai.Completion.create(
