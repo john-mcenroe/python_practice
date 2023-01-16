@@ -1,7 +1,7 @@
 import os
 
 # Set the API key as an environment variable
-os.environ["API_KEY"] = "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"
+os.environ["API_KEY"] = "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"
 
 # Import the OpenAI API client
 import openai
