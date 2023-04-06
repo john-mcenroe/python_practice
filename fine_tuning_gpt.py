@@ -1,10 +1,10 @@
 import openai
 
 # Set the API key
-openai.api_key = "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"
+openai.api_key = "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"
 
 # Define the dataset and the prompt
-data = "Trend1: This is an example of a trend that you want the model to learn"
+data = "Trend1: Generate ideas for cat videos"
 prompt = 'Generate a text for trend1'
 
 # Create the fine-tuning request

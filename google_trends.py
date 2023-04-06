@@ -28,3 +28,46 @@ def get_trend_score(keyword):
 df['trend_score'] = df[0].apply(get_trend_score)
 df = df.sort_values('trend_score', ascending = False)
 print(df.head(100))
+
+
+# Get relevant trends from Google Trends and related queries
+def get_relevant_trends():
+    pytrend = TrendReq()
+    df = pytrend.trending_searches(pn='united_states')
+    df['trend_score'] = df[0].apply(get_trend_score)
+    df = df.sort_values('trend_score', ascending = False)
+    return df
+
+
+# Get related queries for the top trends
+def get_related_queries():
+    df = get_relevant_trends()
+    related_queries = {}
+    for keyword in df[0].head(10):
+        pytrend.build_payload(kw_list=[keyword], timeframe='2022-01-15 2022-01-15', geo='US')
+        related_queries[keyword] = pytrend.related_queries()
+    return related_queries
+
+# Get related topics for the top trends
+def get_related_topics():
+    df = get_relevant_trends()
+    related_topics = {}
+    for keyword in df[0].head(10):
+        pytrend.build_payload(kw_list=[keyword], timeframe='2022-01-15 2022-01-15', geo='US')
+        related_topics[keyword] = pytrend.related_topics()
+    return related_topics
+
+# Combine topics, queries and trends together into a data frame keyed on trends
+def combine_all():
+    df = get_relevant_trends()
+    related_queries = get_related_queries()
+    related_topics = get_related_topics()
+    df_combined = pd.DataFrame()
+    for keyword in df[0].head(1):
+        df_combined[keyword] = related_queries[keyword][keyword]['query']
+        df_combined[keyword + ' topics'] = related_topics[keyword][keyword]['title']
+    return df_combined
+
+# Get the top 10 trends and related queries and topics
+df_combined = combine_all()
+df_combined.head(10)
